@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Player</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #video-container {
+    text-align: center;
+  }
+  #video-player {
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+  #controls-container {
+    margin-top: 20px;
+  }
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 70%;
+    margin-right: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+<div id="video-container">
+  <video id="video-player" preload="none">
+    Your browser does not support the video tag.
+  </video>
+  <div id="controls-container">
+    <input type="text" id="video-url" placeholder="Enter video URL">
+    <button onclick="togglePlayPause()">Play</button>
+    <button onclick="stopVideo()">Stop</button>
+  </div>
+</div>
+<script>
+  var videoPlayer = document.getElementById("video-player");
+  var playButton = document.querySelector("#controls-container button:nth-of-type(1)");
+  var stopButton = document.querySelector("#controls-container button:nth-of-type(2)");
+  var isPlaying = false;
+
+  function togglePlayPause() {
+    if (isPlaying) {
+      pauseVideo();
+    } else {
+      playVideo();
+    }
+  }
+
+  function playVideo() {
+    if (!videoPlayer.src || videoPlayer.src !== document.getElementById("video-url").value) {
+      videoPlayer.src = document.getElementById("video-url").value;
+    }
+    videoPlayer.play();
+    playButton.textContent = "Pause";
+    stopButton.disabled = false;
+    isPlaying = true;
+  }
+
+  function pauseVideo() {
+    videoPlayer.pause();
+    playButton.textContent = "Play";
+    isPlaying = false;
+  }
+
+  function stopVideo() {
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+    playButton.textContent = "Play";
+    stopButton.disabled = true;
+    isPlaying = false;
+  }
+</script>
+</body>
+</html>
